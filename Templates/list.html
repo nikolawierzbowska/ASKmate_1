@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>List out you user stories</title>
+</head>
+<style>
+    table, td,th {
+        border: 1px solid black;
+    }
+</style>
+<body>
+    <h1>Super Sprinter 3000!!</h1>
+<p>
+    <a href="/story">Add new story</a>
+</p>
+<table>
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Story tittle</th>
+            <th>User story</th>
+            <th>Acc. Cr.</th>
+            <th>Business value.</th>
+            <th> Estimation</th>
+            <th> Status</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for story in stories %}
+
+            <tr>
+                 <td>{{ story['id']}}</td>
+                 <td><a href="/story"{{story["id"]}}>{{story['title']}}</a></td>
+                 <td>{{ story['user_story']}}</td>
+                 <td>{{ story['acceptance_criteria']}}</td>
+                 <td>{{ story['business_status']}}</td>
+                 <td> {{ story['estimation']}}</td>
+                 <td> {{ story['status']}}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+</body>
+</html>
