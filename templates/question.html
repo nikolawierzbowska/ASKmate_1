@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Ask mate</title>
+</head>
+
+<body>
+    <h1>Question</h1>
+
+
+    {% for q in question %}
+    <h2>{{q['title']}}</h2>
+    <p>{{q['message']}}</p>
+    {% endfor %}
+
+</body>
+</html>

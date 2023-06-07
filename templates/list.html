@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ask mate</title>
+</head>
+<style>
+    table, td,th {
+        border: 1px solid black;
+    }
+</style>
+
+<body>
+    <h1>Questions</h1>
+<table>
+        <thead>
+        <tr>
+            <th>Date</th>
+            <th>View number</th>
+            <th>Vote number</th>
+            <th>Question</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for question in questions%}
+            <tr>
+                 <td>{{ question['submission_time']}}</td>
+                 <td>{{ question['view_number']}}</td>
+                 <td>{{ question['vote_number']}}</td>
+                 <td><a href="/question/{{question['id']}}">{{question['title']}}</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+</table>
+</body>
+</html>
