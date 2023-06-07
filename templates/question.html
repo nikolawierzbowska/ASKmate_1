@@ -1,18 +1,46 @@
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 <head>
+    <title>Question</title>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 75%;
+            margin-right: 15px;
+            margin-left: auto;
+            margin-bottom: 50px;
+        }
 
-    <title>Ask mate</title>
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: center;
+        }
+    </style>
 </head>
-
 <body>
-    <h1>Question</h1>
+    <h1>Question and Answers</h1>
 
+    <table>
+        <tr>
+            <th>Question</th>
+            <th>Message</th>
+        </tr>
+        <tr>
+            <td>{{ question }}</td>
+            <td>{{ message }}</td>
+        </tr>
+    </table>
 
-    {% for q in question %}
-    <h2>{{q['title']}}</h2>
-    <p>{{q['message']}}</p>
-    {% endfor %}
-
+    <table>
+         <tr>
+            <th>Answers</th>
+        </tr>
+        {% for answer in answers %}
+        <tr>
+            <td>{{ answer }}</td>
+        </tr>
+        {% endfor %}
+    </table>
 </body>
 </html>

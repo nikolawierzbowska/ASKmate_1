@@ -16,8 +16,11 @@ def list_questions():
 
 
 @app.route('/question/<question_id>')
-def print_question():
-        return flask.render_template("question.html", question=list_questions(file="data/question.csv"))
+def print_question(question_id):
+    question = data_manager.get_question_by_id_dm(question_id)
+    message = data_manager.get_message_by_id_dm(question_id)
+    answers = data_manager.get_answers_by_question_id_dm(question_id)
+    return flask.render_template('question.html', question=question,message =message, answers=answers)
 
 
 if __name__ == "__main__":
