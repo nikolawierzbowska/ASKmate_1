@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="eng">
 <head>
-    <title>Question</title>
+    <title>Question and answers</title>
     <style>
         table {
             border-collapse: collapse;
@@ -34,11 +34,13 @@
 
     <table>
          <tr>
-            <th>Answers</th>
+             <th>Date</th>
+             <th>Answers</th>
         </tr>
         {% for answer in answers %}
         <tr>
-            <td>{{ answer }}</td>
+            <td>{{ answer[0] }}</td>
+            <td>{{ answer[1] }}</td>
         </tr>
         {% endfor %}
     </table>

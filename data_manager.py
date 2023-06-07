@@ -24,6 +24,27 @@ def get_message_by_id_dm(question_id):
 
 def get_answers_by_question_id_dm(question_id):
     data_answers = connection.read_dict_from_file('data/answer.csv')
-    answers = [line['message'] for line in data_answers if line['question_id'] == question_id]
+    for answer in data_answers:
+        answer["submission_time"] = util.convert_timestamp_to_date(int(answer["submission_time"]))
+    sorted_answers = sorted(data_answers, key=lambda x: x["submission_time"], reverse=True)
+    answers = [[line["submission_time"],line['message']] for line in sorted_answers if line['question_id'] == question_id]
     return answers
+
+
+def add_question_dm(title, message):
+    questions = connection.read_dict_from_file("data/question.csv")
+    new_question_id = str(util.generated_id())
+    new_question = {
+        'id':new_question_id,
+        "submission_time":util.get_time(),
+        "view_number":0,
+        "vote_number":0,
+        'title': title,
+        'message': message,
+        "image":0
+
+    }
+    questions.append(new_question)
+    connection.write_dict_to_file_str('data/question.csv', questions)
+    return new_question_id
 

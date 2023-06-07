@@ -17,3 +17,8 @@ def update_dict_to_file(file_name,data):
         for record in data:
             file.write(record)
 
+def write_dict_to_file_str(file_name, data):
+    with open(file_name, 'w', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=data[0].keys())
+        writer.writeheader()
+        writer.writerows(data)
