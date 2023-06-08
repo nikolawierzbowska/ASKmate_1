@@ -20,9 +20,7 @@
 </head>
 <body>
     <h1>Question and Answers</h1>
-<p>
-    <a href="/question/{{question_id}}/new-answer">Add new answer</a>
-</p>
+
     <table>
         <tr>
             <th>Question</th>
@@ -33,6 +31,16 @@
             <td>{{ message }}</td>
         </tr>
     </table>
+<p>
+    <a href='/list'>List of questions</a>
+</p>
+<p>
+    <a href="/question/{{question_id}}/new_answer">Add new answer</a>
+</p>
+<p>
+    <a href='/question/{{question_id}}/delete'>Delete question</a>
+</p>
+
 
     <table>
          <tr>
@@ -42,7 +50,7 @@
         {% for answer in answers %}
         <tr>
             <td>{{ answer[0] }}</td>
-            <td>{{ answer[1] }}</td>
+            <td>{{answer[1]}}<a href="/answer/{{answer[2]}}/delete">&#88;</a></td>
         </tr>
         {% endfor %}
     </table>

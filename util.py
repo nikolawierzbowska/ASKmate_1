@@ -1,8 +1,6 @@
 # dodatkowe funkcje]
 import datetime, connection
 
-questions_csv = "data/question.csv"
-answers_csv ="data/answer.csv"
 
 def convert_timestamp_to_date(timestamp):
     date = datetime.datetime.fromtimestamp(timestamp)

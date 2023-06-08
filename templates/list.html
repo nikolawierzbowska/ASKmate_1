@@ -1,8 +1,10 @@
 <!DOCTYPE html>
 <html lang="eng">
 <head>
-    <title>Questions</title>
+    <meta charset="UTF-8">
+    <title>Question List</title>
 </head>
+
 <style>
     table {
             border-collapse: collapse;
@@ -18,33 +20,39 @@
             text-align: center;
     }
 
+    .add_question_link {
+            display: block;
+            margin: 10px;
+    }
+
 </style>
 
 <body>
     <h1>Questions</h1>
-<p>
-    <a href="/add_question">Add new question</a>
-</p>
 
-<table>
+    <a href="{{ url_for('add_question') }}" class="add_question_link">Add Question</a>
+
+    <table>
         <thead>
-        <tr>
-            <th>Date</th>
-            <th>View number</th>
-            <th>Vote number</th>
-            <th>Question</th>
-        </tr>
+            <tr>
+                <th><a href="/list?order_by=submission_time&order_direction=asc">&#9650; Sort by Submission Time</a> <a href="/list?order_by=submission_time&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=view_number&order_direction=asc">&#9650; Sort by View Number</a><a href="/list?order_by=view_number&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=vote_number&order_direction=asc">&#9650; Sort by Vote Number</a><a href="/list?order_by=vote_number&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=title&order_direction=asc">&#9650; Sort by Title</a> <a href="/list?order_by=title&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=message&order_direction=asc">&#9650; Sort by Message</a><a href="/list?order_by=message&order_direction=desc">&#9660;</a></th>
+            </tr>
         </thead>
         <tbody>
-        {% for question in questions%}
+            {% for question in questions %}
             <tr>
-                 <td>{{ question['submission_time']}}</td>
-                 <td>{{ question['view_number']}}</td>
-                 <td>{{ question['vote_number']}}</td>
-                 <td><a href="/question/{{question['id']}}">{{question['title']}}</a></td>
+                <td>{{ question['submission_time'] }}</td>
+                <td>{{ question['view_number'] }}</td>
+                <td>{{ question['vote_number'] }}</td>
+                <td><a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
+                <td>{{ question['message'] }}</td>
             </tr>
             {% endfor %}
         </tbody>
-</table>
+    </table>
 </body>
 </html>

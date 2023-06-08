@@ -11,7 +11,10 @@ def main_page():
 
 @app.route('/list')
 def list_questions():
-    return flask.render_template("list.html", questions = data_manager.list_questions_dm())
+    order_by = flask.request.args.get('order_by')
+    order_direction = flask.request.args.get('order_direction')
+    questions = data_manager.get_sorted_questions(order_by, order_direction)
+    return flask.render_template("list.html", questions=questions)
 
 
 @app.route('/question/<question_id>')
@@ -33,7 +36,7 @@ def add_question():
         return flask.render_template('add_question.html')
 
 
-@app.route('/question/<question_id>/new-answer', methods=['GET', 'POST'])
+@app.route('/question/<question_id>/new_answer', methods=['GET', 'POST'])
 def add_answer(question_id):
     if flask.request.method == 'POST':
         message = flask.request.form['message']
@@ -43,6 +46,17 @@ def add_answer(question_id):
         return flask.render_template('add_answer.html', question_id=question_id)
 
 
+@app.route('/question/<question_id>/delete')
+def delete_question(question_id):
+    data_manager.delete_question_dm(question_id)
+    data_manager.delete_answer_dm(question_id,"question")
+    return flask.redirect('/list')
+
+
+@app.route('/answer/<answer_id>/delete')
+def delete_answer(answer_id):
+    data_manager.delete_answer_dm(answer_id,"answer")
+    return flask.redirect('/question/<question_id>')
 
 
 if __name__ == "__main__":
