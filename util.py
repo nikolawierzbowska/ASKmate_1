@@ -1,14 +1,17 @@
 # dodatkowe funkcje]
 import datetime, connection
 
+questions_csv = "data/question.csv"
+answers_csv ="data/answer.csv"
+
 def convert_timestamp_to_date(timestamp):
     date = datetime.datetime.fromtimestamp(timestamp)
     return date.strftime("%Y-%m-%d %H:%M:%S")
 
 
-def generated_id():
-    data_questions = connection.read_dict_from_file("data/question.csv")
-    existing_id =[int(line["id"]) for line in data_questions]
+def generated_id(file):
+    data = connection.read_dict_from_file(file)
+    existing_id =[int(line["id"]) for line in data]
     return max(int(identification) for identification in existing_id) +1
 
 
