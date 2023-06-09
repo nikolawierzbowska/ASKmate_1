@@ -1,16 +1,11 @@
 id,submission_time,view_number,vote_number,title,message,image
-1,1493368154,29,7,How to make lists in Python?,	I am totally new to this any hints?,
-2,1493068124,15,9,Wordpress loading multiple jQuery Versions,"I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $('.myBook').booklet();
-
-I could easy managing the loading order with wp_enqueue_script so first I load jquery then I load booklet so everything is fine.
-
-BUT in my theme i also using jquery via webpack so the loading order is now following:
-
-jquery
-booklet
-app.js (bundled file with webpack, including jquery)",images/image1.png
-4,1686239089,0,0,python,Why.......,0
-5,1686322506,0,0,ggggggggg,fffffffffffffffffffffffffffff,0
-3,1686323171,0,0,Drawing canvas with an image picked with Cordova Camera Plugin," I'm getting an image from device and drawing a canvas with filters using Pixi JS. It works all well using computer to get an image. But when I'm on IOS, it throws errors such as cross origin issue, or that I'm trying to use an unknown format.,images
+3,1686323171,0,-2,Drawing canvas with an image picked with Cordova Camera Plugin," I'm getting an image from device and drawing a canvas with filters using Pixi JS. It works all well using computer to get an image. But when I'm on IOS, it throws errors such as cross origin issue, or that I'm trying to use an unknown format.,images
 
 This is 'm using to draw the image (that works on web/desktop but not cordova built ios app)",0
+4,1686347316,0,0,python,How do I convert a curl POST to Python requests.post for a US Patent Office API?,0
+6,1686347418,0,0,Creating a unique id through indirect relation python,"My question is that creating a uniqe code for the data which has direct relation, and through that direct relation other indirect relation is created for the first and last one. ",0
+7,1686347867,0,0,PYTHON CODE,How to Create a List in Python?,0
+5,1686347948,0,0,How to make set in Python?,"A am a new,  help me!!!",0
+8,1686348016,0,0,FLASK,What is Flask Python?,0
+9,1686348068,0,0,FLASK,Why is Flask a good web framework choice?,0
+2,1686348221,0,0,FLASK,How To Make a Web Application Using Flask in Python 3??? :),0
