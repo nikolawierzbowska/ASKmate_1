@@ -61,15 +61,20 @@
     <table>
          <tr>
              <th>Date</th>
+             <th>Votes</th>
              <th>Answers</th>
         </tr>
         {% for answer in answers %}
         <tr>
-            <td>{{ answer[0] }}</td>
+            <td>{{ answer[1] }}</td>
+            <td>
+                <a href="/answer/{{answer[0]}}/vote_up">&#65514;</a>
+                {{ answer[2] }}
+                <a href="/answer/{{answer[0]}}/vote_down">&#65516;</a>
             <td>
                 <div class="cell-content">
-                    <span class="cell-text">{{ answer[1] }}</span>
-                    <a href="/answer/{{ answer[2] }}/delete" class="delete-button">&#88;</a>
+                    <span class="cell-text">{{ answer[4] }}</span>
+                    <a href="/answer/{{ answer[0] }}/delete" class="delete-button">&#88;</a>
                 </div>
             </td>
         </tr>

@@ -1,12 +1,12 @@
 import connection
 import util
-import string
 
 questions_csv = "data/question.csv"
 answers_csv = "data/answer.csv"
 
-HEADERS_Q = ["id","submission_time","view_number","vote_number","title","message","image"]
-HEADERS_A= ["id","submission_time","vote_number","question_id","message","image"]
+HEADERS_Q = ["id", "submission_time", "view_number", "vote_number", "title", "message", "image"]
+HEADERS_A = ["id", "submission_time", "vote_number", "question_id", "message", "image"]
+
 
 def get_question_data_by_id_dm(question_id):
     data_questions = connection.read_dict_from_file(questions_csv)
@@ -21,8 +21,10 @@ def get_answers_by_question_id_dm(question_id):
     for answer in data_answers:
         answer["submission_time"] = util.convert_timestamp_to_date(int(answer["submission_time"]))
     sorted_answers = sorted(data_answers, key=lambda x: x["submission_time"], reverse=True)
-    answers = [[line["submission_time"], line['message'], line['id']] for line in sorted_answers
-               if line['question_id'] == question_id]
+    answers = []
+    for line in sorted_answers:
+        if line['question_id'] == question_id:
+            answers.append(list(line.values()))
     return answers
 
 
@@ -76,9 +78,10 @@ def get_sorted_questions(order_by, order_direction):
     return questions
 
 
-def delete_answer(id, type):
+def delete_answer(data_id, data_type):
     answers = connection.read_dict_from_file(answers_csv)
-    answers = [answer for answer in answers if answer.get('question_id' if type == "question" else 'id') != id]
+    answers = [answer for answer in answers if answer.get('question_id'
+                                                          if data_type == "question" else 'id') != data_id]
     connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
 
@@ -100,15 +103,27 @@ def update_question(title, message, question_id):
     add_question_dm(title, message, question_id)
 
 
-def vote_on_questions_dm(question_id, vote):
-    questions = connection.read_dict_from_file(questions_csv)
-    for question in questions:
-        if question['id'] == question_id:
-            number_of_votes = int(question["vote_number"])
+def vote_dm(data_id, data_type, vote):
+    data_list = connection.read_dict_from_file(questions_csv if data_type == "q" else answers_csv)
+    for data in data_list:
+        if data['id'] == data_id:
+            number_of_votes = int(data["vote_number"])
             if vote == "up":
                 number_of_votes += 1
             elif vote == "down":
                 number_of_votes -= 1
-            question["vote_number"] = number_of_votes
+            data["vote_number"] = number_of_votes
+
+    connection.write_dict_to_file_str(questions_csv if data_type == "q" else answers_csv,
+                                      data_list, HEADERS_Q if data_type == "q" else HEADERS_A)
+
+
+def view_question_dm(question_id):
+    questions = connection.read_dict_from_file(questions_csv)
+    for question in questions:
+        if question['id'] == question_id:
+            number_of_views = int(question["view_number"])
+            number_of_views += 1
+            question["view_number"] = number_of_views
 
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)

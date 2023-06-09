@@ -1,15 +1,15 @@
 id,submission_time,view_number,vote_number,title,message,image
 4,1686217034,0,0,tyhdt,retyhtrgr,0
-6,1686220770,0,0,fdsdf,efsed,0
+6,1686220770,1,0,fdsdf,efsed,0
 7,1686220842,0,0,jgyuj,gngdfyh,0
-8,1686220928,0,0,xnfgbf,x fcgbxfd,0
-11,1686231952,0,0,a,a,0
-12,1686231960,0,0,b,b,0
-13,1686231970,0,0,a,a,0
-14,1686231987,0,0,b,b,0
-15,1686232002,0,0,A,A,0
-16,1686232011,0,0,B,B,0
-18,1686319489,0,0,sgbdrfgvs,dbrfgbvs,0
-19,1686320339,0,0,xgdbvdf,gzfbgfd,0
+8,1686220928,0,9,xnfgbf,x fcgbxfd,0
+11,1686231952,1,0,a,a,0
+12,1686231960,3,-1,b,b,0
+13,1686231970,0,-3,a,a,0
+14,1686231987,0,4,b,b,0
+15,1686232002,0,-1,A,A,0
+16,1686232011,0,4,B,B,0
+18,1686319489,0,-4,sgbdrfgvs,dbrfgbvs,0
+19,1686320339,0,3,xgdbvdf,gzfbgfd,0
 5,1686322501,0,0,drftg,dbfgbvf,0
 20,1686323224,0,0,fghndfdtbrsrtg,rgsergverver,0

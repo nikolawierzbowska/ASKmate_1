@@ -1,12 +1,12 @@
 import flask
-from flask import Flask, request
+from flask import Flask
+
 import data_manager
 
 app = Flask(__name__)
 
 ID, SUBMISSION_TIME, VIEW_NUMBER = 0, 1, 2
-VOTE_NUMBER, TITLE, MESSAGE = 3, 4, 5
-IMAGE = 6
+VOTE_NUMBER, TITLE, MESSAGE, IMAGE = 3, 4, 5, 6
 
 
 @app.route('/')
@@ -24,6 +24,7 @@ def list_questions():
 
 @app.route('/question/<question_id>')
 def print_question(question_id):
+    data_manager.view_question_dm(question_id)
     question = data_manager.get_question_data_by_id_dm(question_id)
     answers = data_manager.get_answers_by_question_id_dm(question_id)
     return flask.render_template('question.html', question=question[TITLE],
@@ -80,14 +81,28 @@ def edit_question(question_id):
 
 @app.route('/question/<question_id>/vote_up')
 def vote_up_questions(question_id):
-    data_manager.vote_on_questions_dm(question_id, "up")
+    data_manager.vote_dm(question_id, "q", "up")
     return flask.redirect('/list')
 
 
 @app.route('/question/<question_id>/vote_down')
 def vote_down_questions(question_id):
-    data_manager.vote_on_questions_dm(question_id, "down")
+    data_manager.vote_dm(question_id, "q", "down")
     return flask.redirect('/list')
+
+
+@app.route('/answer/<answer_id>/vote_up')
+def vote_up_answers(answer_id):
+    question_id = data_manager.get_question_id(answer_id)
+    data_manager.vote_dm(answer_id, "a", "up")
+    return flask.redirect(f'/question/{question_id}')
+
+
+@app.route('/answer/<answer_id>/vote_down')
+def vote_down_answers(answer_id):
+    question_id = data_manager.get_question_id(answer_id)
+    data_manager.vote_dm(answer_id, "a", "down")
+    return flask.redirect(f'/question/{question_id}')
 
 
 if __name__ == "__main__":
