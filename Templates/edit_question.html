@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Add Question</title>
+    <title>Edit Question</title>
     <style>
         label {
             display: block;
@@ -17,17 +17,17 @@
     </style>
 </head>
 <body>
-    <h2>Add Question</h2>
+    <h2>Edit Question</h2>
 
-    <form action="/add_question" method="POST">
+    <form action="/question/{{question_id}}/edit" method="POST">
         <div>
             <label for="title">Title:</label>
-            <input type="text" id="title" name="title" maxlength="100" required>
+            <input type="text" id="title" name="title" value={{title}} maxlength="100" required>
         </div>
 
         <div>
             <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
+            <textarea id="message" name="message" required>{{message}} </textarea>
         </div>
 
         <div>
