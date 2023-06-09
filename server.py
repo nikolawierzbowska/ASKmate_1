@@ -1,5 +1,5 @@
 import flask
-from flask import Flask, request
+from flask import Flask
 import data_manager
 
 app = Flask(__name__)
@@ -22,7 +22,8 @@ def print_question(question_id):
     question = data_manager.get_question_by_id_dm(question_id)
     message = data_manager.get_message_by_id_dm(question_id)
     answers = data_manager.get_answers_by_question_id_dm(question_id)
-    return flask.render_template('question.html', question=question,message =message,answers=answers, question_id=question_id)
+    image = data_manager.get_image_by_question_id_dm(question_id)
+    return flask.render_template('question.html', question=question,message =message,answers=answers, question_id=question_id, image=image)
 
 
 @app.route('/add_question', methods=['GET', 'POST'])
@@ -55,8 +56,26 @@ def delete_question(question_id):
 
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
-    data_manager.delete_answer_dm(answer_id,"answer")
-    return flask.redirect('/question/<question_id>')
+    question_id = data_manager.delete_answer_dm(answer_id,"answer")
+    return flask.redirect(f'/question/{question_id}')
+
+
+@app.route('/question/<question_id>/edit', methods =["GET","POST"])
+def edit_question(question_id):
+    if flask.request.method == "GET":
+        message = data_manager.get_message_by_id_dm(question_id)
+        title = data_manager.get_question_by_id_dm(question_id)
+        return flask.render_template('edit_question.html', message=message,question_id = question_id, title= title)
+    elif flask.request.method == "POST":
+        title = flask.request.form["title"]
+        message = flask.request.form["message"]
+        data_manager.update_question_dm(title, message, question_id)
+        return flask.redirect(f'/question/{question_id}')
+
+
+@app.route('/question/<question_id>/vote_up', methods =["GET","POST"])
+def vote_up(question_id):
+    data_manager.
 
 
 if __name__ == "__main__":

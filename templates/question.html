@@ -16,19 +16,35 @@
             padding: 8px;
             text-align: center;
         }
+
+        .cell-content {
+            position: relative;
+            text-align: center;
+        }
+
+        .cell-text {
+            display: block;
+        }
+
+        .delete-button {
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
     </style>
 </head>
 <body>
     <h1>Question and Answers</h1>
-
     <table>
         <tr>
             <th>Question</th>
             <th>Message</th>
+            <th>Image</th>
         </tr>
         <tr>
             <td>{{ question }}</td>
             <td>{{ message }}</td>
+            <td>{{ image }}</td>
         </tr>
     </table>
 <p>
@@ -40,17 +56,29 @@
 <p>
     <a href='/question/{{question_id}}/delete'>Delete question</a>
 </p>
+<p>
+    <a href='/question/{{question_id}}/edit'>Edit question</a>
+</p>
+
 
 
     <table>
          <tr>
              <th>Date</th>
              <th>Answers</th>
+             <th>Image</th>
         </tr>
         {% for answer in answers %}
         <tr>
-            <td>{{ answer[0] }}</td>
-            <td>{{answer[1]}}<a href="/answer/{{answer[2]}}/delete">&#88;</a></td>
+            <td>{{answer[0]}}</td>
+            <td>
+                <div class="cell-content">
+                    <span class="cell-text">{{answer[1]}}</span>
+                    <a href="/answer/{{answer[2]}}/delete" class="delete-button">&#88;</a>
+
+                </div>
+            </td>
+            <td>zdj</td>
         </tr>
         {% endfor %}
     </table>
