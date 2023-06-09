@@ -100,12 +100,15 @@ def update_question(title, message, question_id):
     add_question_dm(title, message, question_id)
 
 
-def vote_up_questions_dm(question_id):
+def vote_on_questions_dm(question_id, vote):
     questions = connection.read_dict_from_file(questions_csv)
     for question in questions:
         if question['id'] == question_id:
             number_of_votes = int(question["vote_number"])
-            number_of_votes += 1
+            if vote == "up":
+                number_of_votes += 1
+            elif vote == "down":
+                number_of_votes -= 1
             question["vote_number"] = number_of_votes
 
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)

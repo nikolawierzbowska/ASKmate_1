@@ -79,8 +79,14 @@ def edit_question(question_id):
 
 
 @app.route('/question/<question_id>/vote_up')
-def vote_up(question_id):
-    data_manager.vote_up_questions_dm(question_id)
+def vote_up_questions(question_id):
+    data_manager.vote_on_questions_dm(question_id, "up")
+    return flask.redirect('/list')
+
+
+@app.route('/question/<question_id>/vote_down')
+def vote_down_questions(question_id):
+    data_manager.vote_on_questions_dm(question_id, "down")
     return flask.redirect('/list')
 
 
