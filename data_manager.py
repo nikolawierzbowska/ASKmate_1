@@ -4,19 +4,16 @@ import string
 
 questions_csv = "data/question.csv"
 answers_csv = "data/answer.csv"
-#TODO lista question z csv
 
+HEADERS_Q = ["id","submission_time","view_number","vote_number","title","message","image"]
+HEADERS_A= ["id","submission_time","vote_number","question_id","message","image"]
 
-def get_question_by_id_dm(question_id):
+def get_question_data_by_id_dm(question_id):
     data_questions = connection.read_dict_from_file(questions_csv)
-    question = next((line["title"] for line in data_questions if line['id'] == question_id), "Not found")
-    return question
-
-
-def get_message_by_id_dm(question_id):
-    data_questions = connection.read_dict_from_file(questions_csv)
-    message = next((line["message"] for line in data_questions if line['id'] == question_id), "Not found")
-    return message
+    for data in data_questions:
+        if data['id'] == question_id:
+            question_data = list(data.values())
+            return question_data
 
 
 def get_answers_by_question_id_dm(question_id):
@@ -43,7 +40,7 @@ def add_question_dm(title, message, question_id=0):
 
     }
     questions.append(new_question)
-    connection.write_dict_to_file_str(questions_csv, questions)
+    connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
     return question_id
 
 
@@ -59,7 +56,7 @@ def add_answer_dm(message, question_id):
         "image": 0
     }
     answers.append(new_answer)
-    connection.write_dict_to_file_str(answers_csv, answers)
+    connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
 
 def get_sorted_questions(order_by, order_direction):
@@ -82,13 +79,13 @@ def get_sorted_questions(order_by, order_direction):
 def delete_answer(id, type):
     answers = connection.read_dict_from_file(answers_csv)
     answers = [answer for answer in answers if answer.get('question_id' if type == "question" else 'id') != id]
-    connection.write_dict_to_file_str(answers_csv, answers)
+    connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
 
 def delete_question(question_id):
     questions = connection.read_dict_from_file(questions_csv)
     questions = [question for question in questions if question.get('id') != question_id]
-    connection.write_dict_to_file_str(questions_csv, questions)
+    connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
 
 
 def get_question_id(answer_id):
@@ -102,3 +99,13 @@ def update_question(title, message, question_id):
     delete_question(question_id)
     add_question_dm(title, message, question_id)
 
+
+def vote_up_questions_dm(question_id):
+    questions = connection.read_dict_from_file(questions_csv)
+    for question in questions:
+        if question['id'] == question_id:
+            number_of_votes = int(question["vote_number"])
+            number_of_votes += 1
+            question["vote_number"] = number_of_votes
+
+    connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)

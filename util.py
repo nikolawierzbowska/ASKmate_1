@@ -10,7 +10,7 @@ def convert_timestamp_to_date(timestamp):
 def generated_id(csv_file):
     data_questions = connection.read_dict_from_file(csv_file)
     existing_id = [int(line["id"]) for line in data_questions]
-    return max(int(identification) for identification in existing_id) + 1
+    return max(int(identification) for identification in existing_id) + 1 if existing_id else 0
 
 
 def get_time():

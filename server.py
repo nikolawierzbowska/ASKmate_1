@@ -4,6 +4,10 @@ import data_manager
 
 app = Flask(__name__)
 
+ID, SUBMISSION_TIME, VIEW_NUMBER = 0, 1, 2
+VOTE_NUMBER, TITLE, MESSAGE = 3, 4, 5
+IMAGE = 6
+
 
 @app.route('/')
 def main_page():
@@ -20,11 +24,10 @@ def list_questions():
 
 @app.route('/question/<question_id>')
 def print_question(question_id):
-    question = data_manager.get_question_by_id_dm(question_id)
-    message = data_manager.get_message_by_id_dm(question_id)
+    question = data_manager.get_question_data_by_id_dm(question_id)
     answers = data_manager.get_answers_by_question_id_dm(question_id)
-    return flask.render_template('question.html', question=question,
-                                 message=message, answers=answers, question_id=question_id)
+    return flask.render_template('question.html', question=question[TITLE],
+                                 message=question[MESSAGE], answers=answers, question_id=question_id)
 
 
 @app.route('/add_question', methods=['GET', 'POST'])
@@ -65,10 +68,9 @@ def delete_answer(answer_id):
 @app.route('/question/<question_id>/edit', methods=['GET', 'POST'])
 def edit_question(question_id):
     if flask.request.method == 'GET':
-        message = data_manager.get_message_by_id_dm(question_id)
-        title = data_manager.get_question_by_id_dm(question_id)
-        return flask.render_template('edit_question.html', message=message, question_id=question_id,
-                                     title=title)
+        question = data_manager.get_question_data_by_id_dm(question_id)
+        return flask.render_template('edit_question.html', message=question[MESSAGE], question_id=question_id,
+                                     title=question[TITLE])
     if flask.request.method == 'POST':
         title = flask.request.form['title']
         message = flask.request.form['message']
@@ -78,8 +80,8 @@ def edit_question(question_id):
 
 @app.route('/question/<question_id>/vote_up')
 def vote_up(question_id):
-    data_manager.vote_up(question_id)
-    return flask.redirect(f'/question/{question_id}')
+    data_manager.vote_up_questions_dm(question_id)
+    return flask.redirect('/list')
 
 
 if __name__ == "__main__":
