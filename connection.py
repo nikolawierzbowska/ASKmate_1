@@ -1,6 +1,5 @@
 import csv
 
-
 def read_dict_from_file(file_name):
     with open(file_name) as file:
         lines = csv.DictReader(file)

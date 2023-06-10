@@ -1,20 +1,5 @@
 id,submission_time,vote_number,question_id,message,image
-7,1686237990,3,3,ddddddddddddddddddddddddddddddddddddddddddddddddddddd,0
-15,1686347345,0,4,"Your code seems correct, but add verify=False (or better, supply the correct certificate) to connect to the server:
-
-import requests
-
-url = 'https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/records'
-
-data = {
-    'criteria': 'patentApplicationNumber: ""15931761""',
-    'start': 0,
-    'rows': 100
-}
-
-out = requests.post(url, data=data, verify=False).json()
-print(out)",0
-16,1686347367,0,4,"maybe is was just my windows 10, but that very long Trackback you deemed unhelpful showed me there was a certificate error. you could try with verify=False.
+16,1686347367,-1,4,"maybe is was just my windows 10, but that very long Trackback you deemed unhelpful showed me there was a certificate error. you could try with verify=False.
 
 response = requests.post(
     'https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/records',
@@ -34,12 +19,10 @@ keys = {n: f'A{i}' for i, s in enumerate(nx.connected_components(G), start=1)
 
 # map unique key based on product group
 df['Unique Key'] = df['Product'].map(keys)",0
-18,1686347847,0,7,"To create a list in Python, we use square brackets ([]). Here's what a list looks like:
+18,1686347847,-2,7,"To create a list in Python, we use square brackets ([]). Here's what a list looks like:
 
 ListName = [ListItem, ListItem1, ListItem2, ListItem3, ...]",0
-19,1686347916,0,5,"In Python, we create sets by placing all the elements inside curly braces {} , separated by comma. A set can have any number of items and they may be of different types (integer, float, tuple, string etc.). But a set cannot have mutable elements like lists, sets or dictionaries as its elements.",0
-20,1686348043,0,8,"Flask is a web application framework written in Python. It was developed by Armin Ronacher, who led a team of international Python enthusiasts called Poocco. Flask is based on the Werkzeg WSGI toolkit and the Jinja2 template engine.Both are Pocco projects.",0
-21,1686348078,0,9,"Unlike the Django framework, Flask is very Pythonic. It’s easy to get started with Flask, because it doesn’t have a huge learning curve.
-
-On top of that it’s very explicit, which increases readability. To create the “Hello World” app, you only need a few lines of code.",0
-22,1686348204,2,2,Flask is a small and lightweight Python web framework that provides useful tools and features that make creating web applications in Python easier. It gives developers flexibility and is a more accessible framework for new developers since you can build a web application quickly using only a single Python file. Flask is also extensible and doesn’t force a particular directory structure or require complicated boilerplate code before getting started.,0
+22,1686348204,2,2,Flask is a small and lightweight Python web framework that provides useful tools and features that make creating web applications in Python easier. It gives developers flexibility and is a more accessible framework for new developers since you can build a web application quickly using only a single Python file. Flask is also extensible and doesnï¿½t force a particular directory structure or require complicated boilerplate code before getting started.,0
+23,1686423184,0,9,"Flask is a web framework, it’s a Python module that lets you develop web applications easily. It’s has a small and easy-to-extend core: it’s a microframework that doesn’t include an ORM (Object Relational Manager) or such features.",static/uploads/3be66faa-9062-49d9-a57f-be70fead3151.png
+24,1686423494,0,5,"Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document.",static/uploads/a59f57a7-8834-4c17-88b2-41963bd7a462.png
+25,1686424179,0,5,Jinja is a web template engine for the Python programming language. It was created by Armin Ronacher and is licensed under a BSD License. Jinja is similar to the Django template engine but provides Python-like expressions while ensuring that the templates are evaluated in a sandbox. It is a text-based template language and thus can be used to generate any markup as well as source code. ,static/uploads/b865df58-9422-466f-aae1-c0f332c833e0.jpg

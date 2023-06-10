@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="eng">
 <head>
-    <meta charset="UTF-8">
     <title>Question List</title>
 </head>
 
@@ -35,11 +34,13 @@
     <table>
         <thead>
             <tr>
-                <th><a href="/list?order_by=submission_time&order_direction=asc">&#9650; Sort by Submission Time</a> <a href="/list?order_by=submission_time&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=view_number&order_direction=asc">&#9650; Sort by View Number</a><a href="/list?order_by=view_number&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=vote_number&order_direction=asc">&#9650; Sort by Vote Number</a><a href="/list?order_by=vote_number&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=title&order_direction=asc">&#9650; Sort by Title</a> <a href="/list?order_by=title&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=message&order_direction=asc">&#9650; Sort by Message</a><a href="/list?order_by=message&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=submission_time&order_direction=asc">&#9650;</a> Sort by Submission Time<a href="/list?order_by=submission_time&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=view_number&order_direction=asc">&#9650;</a>Sort by View Number<a href="/list?order_by=view_number&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=vote_number&order_direction=asc">&#9650;</a>Sort by Vote Number<a href="/list?order_by=vote_number&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=answers&order_direction=asc">&#9650;</a>Sort by Number of Answers<a href="/list?order_by=answers&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=title&order_direction=asc">&#9650;</a>Sort by Title <a href="/list?order_by=title&order_direction=desc">&#9660;</a></th>
+                <th><a href="/list?order_by=message&order_direction=asc">&#9650;</a>Sort by Message<a href="/list?order_by=message&order_direction=desc">&#9660;</a></th>
+                <th>Image</th>
             </tr>
         </thead>
         <tbody>
@@ -47,9 +48,19 @@
             <tr>
                 <td>{{ question['submission_time'] }}</td>
                 <td>{{ question['view_number'] }}</td>
-                <td><a href="/question/{{question["id"]}}/vote_up">&#128077;</a> {{ question['vote_number'] }}<a href="/question/{{question["id"]}}/vote_down">&#128078;</a></td>
-                <td><a href="/question/{{ question['id']}}">{{ question['title']}}</a></td>
+                <td>
+                    <a href="/question/{{question['id']}}/vote_up">&#128077;</a>
+                    {{ question['vote_number'] }}
+                    <a href="/question/{{question['id']}}/vote_down"> &#128078;</a>
+                </td>
+                <td>{{ question['answers'] }}</td>
+                <td><a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
                 <td>{{ question['message'] }}</td>
+                <td>
+                    {% if question['image'] %}
+                        <img src="{{ question['image'] }}" alt="Question Image" style="max-width: 50px;">
+                    {% endif %}
+                </td>
             </tr>
             {% endfor %}
         </tbody>

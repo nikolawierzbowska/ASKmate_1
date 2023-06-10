@@ -16,8 +16,7 @@
             padding: 8px;
             text-align: center;
         }
-
-        .cell-content {
+         .cell-content {
             position: relative;
             text-align: center;
         }
@@ -31,57 +30,72 @@
             top: 0;
             right: 0;
         }
+
     </style>
 </head>
 <body>
-<h1>Question and Answers</h1>
+    <h1>Question and Answers</h1>
+    <p>
+    <a href="/list">List of question</a>
+</p>
+<p>
+    <a href="/question/{{question_id}}/new_answer"> Add new answer</a>
+</p>
+<p>
+    <a href='/question/{{question_id}}/delete'>Delete question</a>
+</p>
+<p>
+    <a href='/question/{{question_id}}/edit'>Edit question</a>
+</p>
 
-<p>
-    <a href='/list'>List of questions</a>
-</p>
-<p>
-    <a href="/question/{{ question_id }}/new_answer">Add new answer</a>
-</p>
-<p>
-    <a href='/question/{{ question_id }}/delete'>Delete question</a>
-</p>
-<p>
-    <a href='/question/{{ question_id }}/edit'>Edit question</a>
-</p>
-<table>
-    <tr>
-        <th>Question</th>
-        <th>Message</th>
-        <th>Image</th>
-    </tr>
-    <tr>
-        <td>{{ question }}</td>
-        <td>{{ message }}</td>
-        <td>{{ image }}</td>
-
-    </tr>
-</table>
-
-<table>
-    <tr>
-        <th>Date</th>
-        <th>Vote number</th>
-        <th>Answers</th>
-        <th>Image</th>
-    </tr>
-    {% for answer in answers %}
+    <table>
         <tr>
-            <td>{{ answer[0] }}</td>
-            <td><a href="/answer/{{ answer[2] }}/vote_up">&#128077;</a>{{ answer[3] }}<a
-                    href="/answer/{{ answer[2] }}/vote_down">&#128078;</a></td>
+            <th>Question</th>
+            <th>Message</th>
+            <th>Image</th>
+        </tr>
+        <tr>
+            <td>
+                <a href="/question/{{question_id}}/vote_up">&#65514;</a>
+                    {{ question }}
+            <a href="/question/{{question_id}}/vote_down">&#65516;</a>
+            </td>
+            <td>{{ message }}</td>
+            <td>
+                {% if image %}
+                    <img src="../{{ image }}" alt="Question Image" style="max-width: 50px;">
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    <table>
+         <tr>
+             <th>Date</th>
+             <th>Votes</th>
+             <th>Answers</th>
+             <th>Image</th>
+        </tr>
+        {% for answer in answers %}
+        <tr>
+            <td>{{ answer[1] }}</td>
+            <td>
+                <a href="/answer/{{answer[0]}}/vote_up">&#128077;</a>
+                {{ answer[2] }}
+                <a href="/answer/{{answer[0]}}/vote_down">&#128078;</a>
             <td>
                 <div class="cell-content">
-                    <span class="cell-text">{{ answer[1] }}</span>  <a href="/answer/{{ answer[2] }}/delete" class="delete-button">&#88;</a>
+                    <span class="cell-text">{{ answer[4] }}</span>
+                    <a href="/answer/{{ answer[0] }}/delete" class="delete-button">&#10060;</a>
                 </div>
             </td>
-            <td>{{ answer[4] }}</td>
+            <td>
+                {% if answer[5] %}
+                    <img src="../{{ answer[5] }}" alt="Answer Image" style="max-width: 50px;">
+                {% endif %}
+            </td>
         </tr>
-    {% endfor %}
-</table>
+        {% endfor %}
+    </table>
 </body>
 </html>
