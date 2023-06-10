@@ -1,15 +1,19 @@
 id,submission_time,view_number,vote_number,title,message,image
-4,1686217034,0,0,tyhdt,retyhtrgr,0
-6,1686220770,1,0,fdsdf,efsed,0
-7,1686220842,0,0,jgyuj,gngdfyh,0
-8,1686220928,0,9,xnfgbf,x fcgbxfd,0
-11,1686231952,1,0,a,a,0
-12,1686231960,3,-1,b,b,0
-13,1686231970,0,-3,a,a,0
-14,1686231987,0,4,b,b,0
-15,1686232002,0,-1,A,A,0
-16,1686232011,0,4,B,B,0
-18,1686319489,0,-4,sgbdrfgvs,dbrfgbvs,0
-19,1686320339,0,3,xgdbvdf,gzfbgfd,0
-5,1686322501,0,0,drftg,dbfgbvf,0
-20,1686323224,0,0,fghndfdtbrsrtg,rgsergverver,0
+1,1493368154,35,7,How to make lists in Python?,"I am totally new to this, any hints?",
+2,1493068124,16,9,Wordpress loading multiple jQuery Versions,"I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $('.myBook').booklet();
+
+I could easy managing the loading order with wp_enqueue_script so first I load jquery then I load booklet so everything is fine.
+
+BUT in my theme i also using jquery via webpack so the loading order is now following:
+
+jquery
+booklet
+app.js (bundled file with webpack, including jquery)",
+3,1493015432,1370,57,Drawing canvas with an image picked with Cordova Camera Plugin,"I'm getting an image from device and drawing a canvas with filters using Pixi JS. It works all well using computer to get an image. But when I'm on IOS, it throws errors such as cross origin issue, or that I'm trying to use an unknown format.
+
+This is the code I'm using to draw the image (that works on web/desktop but not cordova built ios app)",
+5,1686407324,3,0,2345345,324523453,static/uploads/img7.jpg
+7,1686408088,2,-1,hsgrtdg,sgdfv,static/uploads/cb2df912-bc97-4388-a03a-beadc21a892b.jpg
+8,1686408212,1,0,ndbfgb,dbfgbv,static/uploads/4ad0f669-347f-4428-98f1-3284ab6a1965.jpg
+4,1686408239,1,0,234,234 ,static/uploads/img6.jpg
+6,1686408367,2,0,3245,2345     ,static/uploads/3bf8465c-7626-4507-a542-41a651b68ad8.jpg

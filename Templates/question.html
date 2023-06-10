@@ -40,10 +40,20 @@
         <tr>
             <th>Question</th>
             <th>Message</th>
+            <th>Image</th>
         </tr>
         <tr>
-            <td>{{ question }}</td>
+            <td>
+                <a href="/question/{{question_id}}/vote_up">&#65514;</a>
+                    {{ question }}
+            <a href="/question/{{question_id}}/vote_down">&#65516;</a>
+            </td>
             <td>{{ message }}</td>
+            <td>
+                {% if image %}
+                    <img src="../{{ image }}" alt="Question Image" style="max-width: 50px;">
+                {% endif %}
+            </td>
         </tr>
     </table>
 <p>
@@ -63,6 +73,7 @@
              <th>Date</th>
              <th>Votes</th>
              <th>Answers</th>
+             <th>Image</th>
         </tr>
         {% for answer in answers %}
         <tr>
@@ -76,6 +87,11 @@
                     <span class="cell-text">{{ answer[4] }}</span>
                     <a href="/answer/{{ answer[0] }}/delete" class="delete-button">&#88;</a>
                 </div>
+            </td>
+            <td>
+                {% if answer[5] %}
+                    <img src="../{{ answer[5] }}" alt="Answer Image" style="max-width: 50px;">
+                {% endif %}
             </td>
         </tr>
         {% endfor %}
