@@ -6,64 +6,70 @@
 
 <style>
     table {
-            border-collapse: collapse;
-            width: 75%;
-            margin-right: 15px;
-            margin-left: auto;
-            margin-bottom: 50px;
+        border-collapse: collapse;
+        width: 85%;
+        margin-right: 40px;
+        margin-left: auto;
+        margin-bottom: 50px;
     }
 
     th, td {
-            border: 1px solid black;
-            padding: 8px;
-            text-align: center;
+        border: 1px solid black;
+        padding: 8px;
+        text-align: center;
     }
 
     .add_question_link {
-            display: block;
-            margin: 10px;
+        display: block;
+        margin: 10px;
     }
 
 </style>
 
 <body>
-    <h1>Questions</h1>
+<h1>Questions</h1>
+<button><a href="{{ url_for('add_question') }}" class="add_question_link">Add Question</a></button>
 
-    <a href="{{ url_for('add_question') }}" class="add_question_link">Add Question</a>
 
-    <table>
-        <thead>
-            <tr>
-                <th><a href="/list?order_by=submission_time&order_direction=asc">&#9650;</a> Sort by Submission Time<a href="/list?order_by=submission_time&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=view_number&order_direction=asc">&#9650;</a>Sort by View Number<a href="/list?order_by=view_number&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=vote_number&order_direction=asc">&#9650;</a>Sort by Vote Number<a href="/list?order_by=vote_number&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=answers&order_direction=asc">&#9650;</a>Sort by Number of Answers<a href="/list?order_by=answers&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=title&order_direction=asc">&#9650;</a>Sort by Title <a href="/list?order_by=title&order_direction=desc">&#9660;</a></th>
-                <th><a href="/list?order_by=message&order_direction=asc">&#9650;</a>Sort by Message<a href="/list?order_by=message&order_direction=desc">&#9660;</a></th>
-                <th>Image</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for question in questions %}
-            <tr>
-                <td>{{ question['submission_time'] }}</td>
-                <td>{{ question['view_number'] }}</td>
-                <td>
-                    <a href="/question/{{question['id']}}/vote_up">&#128077;</a>
-                    {{ question['vote_number'] }}
-                    <a href="/question/{{question['id']}}/vote_down"> &#128078;</a>
-                </td>
-                <td>{{ question['answers'] }}</td>
-                <td><a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
-                <td>{{ question['message'] }}</td>
-                <td>
-                    {% if question['image'] %}
-                        <img src="{{ question['image'] }}" alt="Question Image" style="max-width: 50px;">
-                    {% endif %}
-                </td>
-            </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+<table>
+    <thead>
+    <tr>
+        <th><a href="/list?order_by=submission_time&order_direction=asc">&#9650;</a> Sort by Submission Time<a
+                href="/list?order_by=submission_time&order_direction=desc">&#9660;</a></th>
+        <th><a href="/list?order_by=view_number&order_direction=asc">&#9650;</a>Sort by View Number<a
+                href="/list?order_by=view_number&order_direction=desc">&#9660;</a></th>
+        <th><a href="/list?order_by=vote_number&order_direction=asc">&#9650;</a>Sort by Vote Number<a
+                href="/list?order_by=vote_number&order_direction=desc">&#9660;</a></th>
+        <th><a href="/list?order_by=answers&order_direction=asc">&#9650;</a>Sort by Number of Answers<a
+                href="/list?order_by=answers&order_direction=desc">&#9660;</a></th>
+        <th><a href="/list?order_by=title&order_direction=asc">&#9650;</a>Sort by Title <a
+                href="/list?order_by=title&order_direction=desc">&#9660;</a></th>
+        <th><a href="/list?order_by=message&order_direction=asc">&#9650;</a>Sort by Message<a
+                href="/list?order_by=message&order_direction=desc">&#9660;</a></th>
+        <th>Image</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for question in questions %}
+        <tr>
+            <td>{{ question['submission_time'] }}</td>
+            <td>{{ question['view_number'] }}</td>
+            <td>
+                <a href="/question/{{ question['id'] }}/vote_up">&#128077;</a>
+                {{ question['vote_number'] }}
+                <a href="/question/{{ question['id'] }}/vote_down"> &#128078;</a>
+            </td>
+            <td>{{ question['answers'] }}</td>
+            <td><a href="/question/{{ question['id'] }}">{{ question['title'] }}</a></td>
+            <td>{{ question['message'] }}</td>
+            <td>
+                {% if question['image'] %}
+                    <img src="{{ question['image'] }}" alt="Question Image" style="max-width: 50px;">
+                {% endif %}
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
 </body>
 </html>

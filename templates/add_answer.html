@@ -6,11 +6,11 @@
     <style>
         label {
             display: block;
-            margin-bottom: 5px;
+            margin-bottom: 10px;
         }
 
         textarea {
-            width: 100%;
+            width: 80%;
             height: 200px;
             resize: vertical;
         }
@@ -18,7 +18,7 @@
 </head>
 <body>
     <h2>Add Answer</h2>
-    <p><a href="/question/{{ question_id }}">Go back</a></p>
+    <p><button><a href="/question/{{ question_id }}">Go back</a></button></p>
 
     <form action="/question/{{question_id}}/new_answer" method="POST" enctype="multipart/form-data">
 
@@ -26,8 +26,9 @@
             <label for="message">Answer:</label>
             <textarea id="message" name="message" required></textarea>
         </div>
+        <br>
         <div>
-            <label for="image">Image:</label>
+            <label for="text">Image:</label>
             <input type="file" id="image" name="image">
         </div>
         <div>
