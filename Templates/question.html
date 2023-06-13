@@ -44,14 +44,14 @@
         </tr>
         <tr>
             <td>
-                <a href="/question/{{question_id}}/vote_up">&#65514;</a>
-                    {{ question }}
-            <a href="/question/{{question_id}}/vote_down">&#65516;</a>
+                <a href="/question/{{question.id}}/vote_up">&#65514;</a>
+                    {{ question.title }}
+            <a href="/question/{{question.id}}/vote_down">&#65516;</a>
             </td>
-            <td>{{ message }}</td>
+            <td>{{ question.message }}</td>
             <td>
-                {% if image %}
-                    <img src="../{{ image }}" alt="Question Image" style="max-width: 50px;">
+                {% if question.image %}
+                    <img src="../{{ question.image }}" alt="Question Image" style="max-width: 50px;">
                 {% endif %}
             </td>
         </tr>
@@ -60,13 +60,13 @@
     <a href="/list">List of question</a>
 </p>
 <p>
-    <a href="/question/{{question_id}}/new_answer"> Add new answer</a>
+    <a href="/question/{{question.id}}/new_answer"> Add new answer</a>
 </p>
 <p>
-    <a href='/question/{{question_id}}/delete'>Delete question</a>
+    <a href='/question/{{question.id}}/delete'>Delete question</a>
 </p>
 <p>
-    <a href='/question/{{question_id}}/edit'>Edit question</a>
+    <a href='/question/{{question.id}}/edit'>Edit question</a>
 </p>
     <table>
          <tr>
@@ -77,20 +77,22 @@
         </tr>
         {% for answer in answers %}
         <tr>
-            <td>{{ answer[1] }}</td>
+            <td>{{ answer.submission_time }}</td>
             <td>
-                <a href="/answer/{{answer[0]}}/vote_up">&#65514;</a>
-                {{ answer[2] }}
-                <a href="/answer/{{answer[0]}}/vote_down">&#65516;</a>
+                <a href="/answer/{{answer.id}}/vote_up">&#65514;</a>
+                {{ answer.vote_number }}
+                <a href="/answer/{{answer.id}}/vote_down">&#65516;</a>
             <td>
                 <div class="cell-content">
-                    <span class="cell-text">{{ answer[4] }}</span>
-                    <a href="/answer/{{ answer[0] }}/delete" class="delete-button">&#88;</a>
+                    <span class="cell-text">{{ answer.message }}</span>
+                    <a href='/answer/{{answer.id}}/edit'>&#9998;</a>
+                    <a href="/answer/{{ answer.id }}/delete" class="delete-button">&#88;</a>
                 </div>
             </td>
             <td>
-                {% if answer[5] %}
-                    <img src="../{{ answer[5] }}" alt="Answer Image" style="max-width: 50px;">
+                {% if answer.image %}
+                    <img src="../{{ answer.image }}" alt="Answer Image" style="max-width: 50px;">
+                    <button type="button" id="remove_image" name="">&#10060;</button>
                 {% endif %}
             </td>
         </tr>

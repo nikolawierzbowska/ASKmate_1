@@ -13,8 +13,7 @@ def get_question_data_by_id_dm(question_id):
     data_questions = connection.read_dict_from_file(questions_csv)
     for data in data_questions:
         if data['id'] == question_id:
-            question_data = list(data.values())
-            return question_data
+            return data
 
 
 def get_answers_by_question_id_dm(question_id):
@@ -25,7 +24,7 @@ def get_answers_by_question_id_dm(question_id):
     answers = []
     for line in sorted_answers:
         if line['question_id'] == question_id:
-            answers.append(list(line.values()))
+            answers.append(line)
     return answers
 
 
@@ -98,12 +97,12 @@ def delete_answer_dm(data_id, data_type):
     connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
 
-def delete_question_dm(question_id):
+def delete_question_dm(question_id, delete_image=None):
     questions = connection.read_dict_from_file(questions_csv)
     for question in questions:
         file_path = question['image']
         if question.get('id') == question_id:
-            if os.path.exists(file_path):
+            if os.path.exists(file_path) and delete_image:
                 os.remove(file_path)
             questions.remove(question)
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
@@ -116,9 +115,14 @@ def get_question_id(answer_id):
             return answer['question_id']
 
 
-def update_question_dm(title, message, image_path, question_id):
-    delete_question_dm(question_id)
+def update_question_dm(title, message, image_path, question_id, delete_image):
+    delete_question_dm(question_id, delete_image)
     add_question_dm(title, message, image_path, question_id)
+
+
+def update_answer_dm(answer_id, message, image_path, question_id):
+    delete_answer_dm(answer_id, 'id')
+    add_answer_dm(message, question_id, image_path)
 
 
 def vote_on_dm(data_id, data_type, vote):
@@ -145,4 +149,3 @@ def view_question_dm(question_id):
             question["view_number"] = number_of_views
 
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
-
