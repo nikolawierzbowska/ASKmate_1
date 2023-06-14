@@ -1,8 +1,8 @@
 id,submission_time,view_number,vote_number,title,message,image
-4,1686423787,2,0,123,123  ,
+4,1686423787,2,1,123,123  ,
 5,1686424747,5,0,test,test1          ,
-6,1686425234,1,0,vsdfcasdc,ehtrgvsredf ,
-2,1686425789,9,-2,Wordpress,"I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $('.myBook').booklet();
+6,1686425234,4,17,vsdfcasdc,ehtrgvsredf ,
+2,1686679318,33,15,Wordpress,"I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $('.myBook').booklet();
 
 I could easy managing the loading order with wp_enqueue_script so first I load jquery then I load booklet so everything is fine.
 
@@ -10,5 +10,5 @@ BUT in my theme i also using jquery via webpack so the loading order is now foll
 
 jquery
 booklet
-app.js (bundled file with webpack, including jquery)  ",
-11,1686676138,2,0,256,15   dtyhdrtf           ,static/uploads/523f770f-929c-41d5-bec3-6d1c9291e0a4.jpg
+app.js (bundled file with webpack, including jquery)",
+11,1686682605,14,9,256,rfeawefd       tyhgrtv  ,

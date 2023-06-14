@@ -97,6 +97,20 @@ def delete_answer_dm(data_id, data_type):
     connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
 
+def delete_image(question_id):
+    questions = connection.read_dict_from_file(questions_csv)
+    for question in questions:
+        file_path = question['image']
+        saved_data = question
+        saved_data['image'] = None
+        if question.get('id') == question_id:
+            if os.path.exists(file_path):
+                os.remove(file_path)
+            questions.remove(question)
+            questions.append(saved_data)
+    connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
+
+
 def delete_question_dm(question_id, delete_image=None):
     questions = connection.read_dict_from_file(questions_csv)
     for question in questions:
@@ -120,9 +134,9 @@ def update_question_dm(title, message, image_path, question_id, delete_image):
     add_question_dm(title, message, image_path, question_id)
 
 
-def update_answer_dm(answer_id, message, image_path, question_id):
-    delete_answer_dm(answer_id, 'id')
-    add_answer_dm(message, question_id, image_path)
+# def update_answer_dm(answer_id, message, image_path, question_id):
+#     delete_answer_dm(answer_id, 'id')
+#     add_answer_dm(message, question_id, image_path)
 
 
 def vote_on_dm(data_id, data_type, vote):

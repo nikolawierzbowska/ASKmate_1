@@ -6,13 +6,10 @@ import uuid
 
 app = Flask(__name__)
 
-ID, SUBMISSION_TIME, VIEW_NUMBER = 0, 1, 2
-VOTE_NUMBER, TITLE, MESSAGE, IMAGE = 3, 4, 5, 6
-
 
 @app.route('/')
 def main_page():
-    return flask.render_template("main.html")
+    return flask.redirect("/list")
 
 
 @app.route('/list')
@@ -24,7 +21,7 @@ def list_questions():
 
 
 @app.route('/question/<question_id>')
-def print_question(question_id): #  html zmienic na słownik
+def print_question(question_id):
     data_manager.view_question_dm(question_id)
     question = data_manager.get_question_data_by_id_dm(question_id)
     answers = data_manager.get_answers_by_question_id_dm(question_id)
@@ -98,7 +95,7 @@ def delete_answer(answer_id):
 
 
 @app.route('/question/<question_id>/edit', methods=['GET', 'POST'])
-def edit_question(question_id):
+def edit_question(question_id): #checkbox
     delete_image = None
     question = data_manager.get_question_data_by_id_dm(question_id)
     if flask.request.method == 'GET':
@@ -123,16 +120,30 @@ def edit_question(question_id):
         return flask.redirect(f'/question/{question_id}')
 
 
+@app.route('/question/<question_id>/delete_image')
+def delete_question_image(question_id):
+    data_manager.delete_image(question_id)
+    return flask.redirect(f'/question/{question_id}')
+
+
 @app.route('/question/<question_id>/vote_up')
 def vote_up_questions(question_id):
-    data_manager.vote_on_dm(question_id, "q", "up")
-    return flask.redirect('/list')
+    if flask.request.args.get("source") == "question":
+        data_manager.vote_on_dm(question_id, "q", "up")
+        return flask.redirect(f'/question/{question_id}')
+    else:
+        data_manager.vote_on_dm(question_id, "q", "up")
+        return flask.redirect('/list')
 
 
 @app.route('/question/<question_id>/vote_down')
 def vote_down_questions(question_id):
-    data_manager.vote_on_dm(question_id, "q", "down")
-    return flask.redirect('/list')
+    if flask.request.args.get("source") == "question":
+        data_manager.vote_on_dm(question_id, "q", "down")
+        return flask.redirect(f'/question/{question_id}')
+    else:
+        data_manager.vote_on_dm(question_id, "q", "down")
+        return flask.redirect('/list')
 
 
 @app.route('/answer/<answer_id>/vote_up')

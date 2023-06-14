@@ -44,14 +44,17 @@
         </tr>
         <tr>
             <td>
-                <a href="/question/{{question.id}}/vote_up">&#65514;</a>
+                <a href="/question/{{question.id}}/vote_up?source=question">&#65514;</a>
                     {{ question.title }}
-            <a href="/question/{{question.id}}/vote_down">&#65516;</a>
+            <a href="/question/{{question.id}}/vote_down?source=question">&#65516;</a>
             </td>
             <td>{{ question.message }}</td>
             <td>
                 {% if question.image %}
                     <img src="../{{ question.image }}" alt="Question Image" style="max-width: 50px;">
+                    <a href="/question/{{question.id}}/delete_image">
+                        <button type="button" id="remove_image" name="">&#10060;</button>
+                    </a>
                 {% endif %}
             </td>
         </tr>
@@ -85,14 +88,12 @@
             <td>
                 <div class="cell-content">
                     <span class="cell-text">{{ answer.message }}</span>
-                    <a href='/answer/{{answer.id}}/edit'>&#9998;</a>
                     <a href="/answer/{{ answer.id }}/delete" class="delete-button">&#88;</a>
                 </div>
             </td>
             <td>
                 {% if answer.image %}
                     <img src="../{{ answer.image }}" alt="Answer Image" style="max-width: 50px;">
-                    <button type="button" id="remove_image" name="">&#10060;</button>
                 {% endif %}
             </td>
         </tr>
