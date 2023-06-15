@@ -1,28 +1,7 @@
 id,submission_time,vote_number,question_id,message,image
-16,1686347367,-1,4,"maybe is was just my windows 10, but that very long Trackback you deemed unhelpful showed me there was a certificate error. you could try with verify=False.
-
-response = requests.post(
-    'https://developer.uspto.gov/ds-api/enriched_cited_reference_metadata/v2/records',
-    headers=headers,
-    data=data,
-    verify=False",0
-17,1686347439,0,6,"With networkx, you can use nx.connected_components and map:
-
-import networkx as nx
-
-# create graph
-G = nx.from_pandas_edgelist(df, source='Product', target='References')
-
-# find connected components, map unique key per group
-keys = {n: f'A{i}' for i, s in enumerate(nx.connected_components(G), start=1)
-        for n in s}
-
-# map unique key based on product group
-df['Unique Key'] = df['Product'].map(keys)",0
-18,1686347847,-2,7,"To create a list in Python, we use square brackets ([]). Here's what a list looks like:
-
-ListName = [ListItem, ListItem1, ListItem2, ListItem3, ...]",0
-22,1686348204,2,2,Flask is a small and lightweight Python web framework that provides useful tools and features that make creating web applications in Python easier. It gives developers flexibility and is a more accessible framework for new developers since you can build a web application quickly using only a single Python file. Flask is also extensible and doesnï¿½t force a particular directory structure or require complicated boilerplate code before getting started.,0
-23,1686423184,0,9,"Flask is a web framework, it’s a Python module that lets you develop web applications easily. It’s has a small and easy-to-extend core: it’s a microframework that doesn’t include an ORM (Object Relational Manager) or such features.",static/uploads/3be66faa-9062-49d9-a57f-be70fead3151.png
-24,1686423494,0,5,"Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document.",static/uploads/a59f57a7-8834-4c17-88b2-41963bd7a462.png
-25,1686424179,0,5,Jinja is a web template engine for the Python programming language. It was created by Armin Ronacher and is licensed under a BSD License. Jinja is similar to the Django template engine but provides Python-like expressions while ensuring that the templates are evaluated in a sandbox. It is a text-based template language and thus can be used to generate any markup as well as source code. ,static/uploads/b865df58-9422-466f-aae1-c0f332c833e0.jpg
+23,1686423184,0,9,"Flask is a web framework, itï¿½s a Python module that lets you develop web applications easily. Itï¿½s has a small and easy-to-extend core: itï¿½s a microframework that doesnï¿½t include an ORM (Object Relational Manager) or such features.",
+24,1686423494,1,5,"Jinja is a fast, expressive, extensible templating engine. Special placeholders in the template allow writing code similar to Python syntax. Then the template is passed data to render the final document.",
+25,1686424179,2,5,Jinja is a web template engine for the Python programming language. It was created by Armin Ronacher and is licensed under a BSD License. Jinja is similar to the Django template engine but provides Python-like expressions while ensuring that the templates are evaluated in a sandbox. It is a text-based template language and thus can be used to generate any markup as well as source code.,
+26,1686853283,0,3,fffffffffffff,
+29,1686853524,0,6,"With networkx, you can use nx.connected_components and map: import networkx as nx # create graph G = nx.from_pandas_edgelist(df, source='Product', target='References') # find connected components, map unique key per group keys = {n: f'A{i}' for i, s in enumerate(nx.connected_components(G), start=1) for n in s} # map unique key based on product group df['Unique Key'] = df['Product'].map(keys)",static/uploads/028971ed-c91f-493d-8bef-3c64a17d536a.png
+30,1686854351,0,7,aaaaaaa,static/uploads/cd84a4ca-4fc5-4596-9c92-ff61459b71f8.jpg

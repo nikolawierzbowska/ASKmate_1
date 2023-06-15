@@ -1,4 +1,3 @@
-# dodatkowe funkcje]
 import datetime, connection
 
 

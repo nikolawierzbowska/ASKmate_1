@@ -13,8 +13,7 @@ def get_question_data_by_id_dm(question_id):
     data_questions = connection.read_dict_from_file(questions_csv)
     for data in data_questions:
         if data['id'] == question_id:
-            question_data = list(data.values())
-            return question_data
+            return data
 
 
 def get_answers_by_question_id_dm(question_id):
@@ -25,7 +24,7 @@ def get_answers_by_question_id_dm(question_id):
     answers = []
     for line in sorted_answers:
         if line['question_id'] == question_id:
-            answers.append(list(line.values()))
+            answers.append(line)
     return answers
 
 
@@ -40,7 +39,6 @@ def add_question_dm(title, message, image_path=None, question_id=0):
         'title': title,
         'message': message,
         "image": image_path
-
     }
     questions.append(new_question)
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
@@ -98,12 +96,27 @@ def delete_answer_dm(data_id, data_type):
     connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
 
-def delete_question_dm(question_id):
+def delete_image(question_id):
     questions = connection.read_dict_from_file(questions_csv)
     for question in questions:
         file_path = question['image']
         if question.get('id') == question_id:
+            saved_data = question
+            saved_data["image"] = None
             if os.path.exists(file_path):
+                os.remove(file_path)
+            questions.remove(question)
+            questions.append(saved_data)
+
+    connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
+
+
+def delete_question_dm(question_id, delete_image_file = None):
+    questions = connection.read_dict_from_file(questions_csv)
+    for question in questions:
+        file_path = question['image']
+        if question.get('id') == question_id:
+            if os.path.exists(file_path) and delete_image_file:
                 os.remove(file_path)
             questions.remove(question)
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
@@ -116,8 +129,8 @@ def get_question_id(answer_id):
             return answer['question_id']
 
 
-def update_question_dm(title, message, image_path, question_id):
-    delete_question_dm(question_id)
+def update_question_dm(title, message, image_path, question_id, delete_image):
+    delete_question_dm(question_id,delete_image)
     add_question_dm(title, message, image_path, question_id)
 
 
