@@ -36,9 +36,7 @@ def add_question():
         image_file = flask.request.files['image']
         image_path = None
         if 'image' in flask.request.files and image_file.filename != '':
-            unique_filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
-            image_path = 'static/uploads/' + unique_filename
-            image_file.save(image_path)
+            image_path = data_manager.save_image_dm(image_file)
         new_question_id = data_manager.add_question_dm(title, message, image_path)
         return flask.redirect(f'/question/{new_question_id}')
     else:
@@ -52,9 +50,7 @@ def add_answer(question_id):
         image_file = flask.request.files['image']
         image_path = None
         if 'image' in flask.request.files and image_file.filename != '':
-            unique_filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
-            image_path = 'static/uploads/' + unique_filename
-            image_file.save(image_path)
+            image_path = data_manager.save_image_dm(image_file)
         data_manager.add_answer_dm(message, question_id, image_path)
         return flask.redirect(f'/question/{question_id}')
     elif flask.request.method == 'GET':
@@ -83,19 +79,19 @@ def add_answer(question_id):
 @app.route('/question/<question_id>/delete')
 def delete_question(question_id):
     data_manager.delete_question_dm(question_id)
-    data_manager.delete_answer_dm(question_id, "question")
+    data_manager.delete_answer_by_question_id(question_id)
     return flask.redirect('/list')
 
 
 @app.route('/answer/<answer_id>/delete')
 def delete_answer(answer_id):
     question_id = data_manager.get_question_id(answer_id)
-    data_manager.delete_answer_dm(answer_id, "answer")
+    data_manager.delete_answer_by_id(answer_id)
     return flask.redirect(f'/question/{question_id}')
 
 
 @app.route('/question/<question_id>/edit', methods=['GET', 'POST'])
-def edit_question(question_id): #checkbox
+def edit_question(question_id):  # delete file -> util
     delete_image = None
     question = data_manager.get_question_data_by_id_dm(question_id)
     if flask.request.method == 'GET':
@@ -105,23 +101,23 @@ def edit_question(question_id): #checkbox
         message = flask.request.form['message']
         image_file = flask.request.files['image']
         remove_image = flask.request.form.get('remove_image')
-        if 'image' in flask.request.files and image_file.filename != '': # nadpisujemy nowym zdjęciem
+        if 'image' in flask.request.files and image_file.filename != '':
             unique_filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
             image_path = 'static/uploads/' + unique_filename
             image_file.save(image_path)
             delete_image = True
-            data_manager.update_question_dm(title, message, image_path, question_id,  delete_image)
-        elif image_file.filename == '' and remove_image: # usuwamy zdjęcie i nie dodajemy nowego
+            data_manager.update_question_dm(title, message, image_path, question_id, delete_image)
+        elif image_file.filename == '' and remove_image:
             image_path = None
             data_manager.update_question_dm(title, message, image_path, question_id, delete_image)
-        elif not remove_image: # pozostawiamy stare zdjęcie
+        elif not remove_image:
             image_path = question['image']
             data_manager.update_question_dm(title, message, image_path, question_id, delete_image)
         return flask.redirect(f'/question/{question_id}')
 
 
 @app.route('/question/<question_id>/delete_image')
-def delete_question_image(question_id):
+def delete_question_image(question_id):  # delete file -> util
     data_manager.delete_image(question_id)
     return flask.redirect(f'/question/{question_id}')
 
@@ -129,34 +125,34 @@ def delete_question_image(question_id):
 @app.route('/question/<question_id>/vote_up')
 def vote_up_questions(question_id):
     if flask.request.args.get("source") == "question":
-        data_manager.vote_on_dm(question_id, "q", "up")
+        data_manager.vote_on_question_dm(question_id, "up")
         return flask.redirect(f'/question/{question_id}')
     else:
-        data_manager.vote_on_dm(question_id, "q", "up")
+        data_manager.vote_on_question_dm(question_id, "up")
         return flask.redirect('/list')
 
 
 @app.route('/question/<question_id>/vote_down')
 def vote_down_questions(question_id):
     if flask.request.args.get("source") == "question":
-        data_manager.vote_on_dm(question_id, "q", "down")
+        data_manager.vote_on_question_dm(question_id, "down")
         return flask.redirect(f'/question/{question_id}')
     else:
-        data_manager.vote_on_dm(question_id, "q", "down")
+        data_manager.vote_on_question_dm(question_id, "down")
         return flask.redirect('/list')
 
 
 @app.route('/answer/<answer_id>/vote_up')
 def vote_up_answers(answer_id):
     question_id = data_manager.get_question_id(answer_id)
-    data_manager.vote_on_dm(answer_id, "a", "up")
+    data_manager.vote_on_answer_dm(answer_id, "up")
     return flask.redirect(f'/question/{question_id}')
 
 
 @app.route('/answer/<answer_id>/vote_down')
 def vote_down_answers(answer_id):
     question_id = data_manager.get_question_id(answer_id)
-    data_manager.vote_on_dm(answer_id, "a", "down")
+    data_manager.vote_on_answer_dm(answer_id, "up")
     return flask.redirect(f'/question/{question_id}')
 
 

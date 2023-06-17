@@ -1,5 +1,6 @@
 import datetime
 import connection
+import os
 
 
 def convert_timestamp_to_date(timestamp):
@@ -16,3 +17,8 @@ def generated_id(csv_file):
 def get_time():
     current_date = datetime.datetime.now()
     return int(datetime.datetime.timestamp(current_date))
+
+
+def delete_image_file(file_path):
+    if os.path.exists(file_path):
+        os.remove(file_path)

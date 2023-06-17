@@ -1,6 +1,8 @@
+import os
+import uuid
+
 import connection
 import util
-import os
 
 questions_csv = "data/question.csv"
 answers_csv = "data/answer.csv"
@@ -11,9 +13,7 @@ HEADERS_A = ["id", "submission_time", "vote_number", "question_id", "message", "
 
 def get_question_data_by_id_dm(question_id):
     data_questions = connection.read_dict_from_file(questions_csv)
-    for data in data_questions:
-        if data['id'] == question_id:
-            return data
+    return next(data for data in data_questions if data['id'] == question_id)
 
 
 def get_answers_by_question_id_dm(question_id):
@@ -21,16 +21,12 @@ def get_answers_by_question_id_dm(question_id):
     for answer in data_answers:
         answer["submission_time"] = util.convert_timestamp_to_date(int(answer["submission_time"]))
     sorted_answers = sorted(data_answers, key=lambda x: x["submission_time"], reverse=True)
-    answers = []
-    for line in sorted_answers:
-        if line['question_id'] == question_id:
-            answers.append(line)
-    return answers
+    return [line for line in sorted_answers if line['question_id'] == question_id]
 
 
-def add_question_dm(title, message, image_path=None, question_id=0):
+def add_question_dm(title, message, image_path=None, question_id=None):
     questions = connection.read_dict_from_file(questions_csv)
-    question_id = str(util.generated_id(questions_csv)) if question_id == 0 else question_id
+    question_id = str(util.generated_id(questions_csv)) if question_id is None else question_id
     new_question = {
         'id': question_id,
         "submission_time": util.get_time(),
@@ -61,6 +57,7 @@ def add_answer_dm(message, question_id, image_path=None):
     connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
 
+# TODO solution with filter + len (i have no idea..?)
 def get_sorted_questions(order_by, order_direction):
     questions = connection.read_dict_from_file(questions_csv)
     answers = connection.read_dict_from_file(answers_csv)
@@ -85,14 +82,20 @@ def get_sorted_questions(order_by, order_direction):
     return questions
 
 
-def delete_answer_dm(data_id, data_type):
-    header = 'question_id' if data_type == "question" else 'id'
+def delete_answer_by_id(answer_id):
+    delete_answer_dm(answer_id, 'id')
+
+
+def delete_answer_by_question_id(question_id):
+    delete_answer_dm(question_id, 'question_id')
+
+
+def delete_answer_dm(data_id, header):
     answers = connection.read_dict_from_file(answers_csv)
     for answer in answers:
         file_path = answer['image']
         if answer.get(header) == data_id:
-            if os.path.exists(file_path):
-                os.remove(file_path)
+            util.delete_image_file(file_path)
             answers.remove(answer)
     connection.write_dict_to_file_str(answers_csv, answers, HEADERS_A)
 
@@ -100,24 +103,24 @@ def delete_answer_dm(data_id, data_type):
 def delete_image(question_id):
     questions = connection.read_dict_from_file(questions_csv)
     for question in questions:
-        file_path = question['image']
-        saved_data = question
-        saved_data['image'] = None
         if question.get('id') == question_id:
-            if os.path.exists(file_path):
-                os.remove(file_path)
+            file_path = question['image']
+            saved_data = question
+            saved_data['image'] = None
+            util.delete_image_file(file_path)
             questions.remove(question)
             questions.append(saved_data)
+            break
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
 
 
-def delete_question_dm(question_id, delete_image=None):
+def delete_question_dm(question_id, delete_image_file=None):
     questions = connection.read_dict_from_file(questions_csv)
     for question in questions:
-        file_path = question['image']
         if question.get('id') == question_id:
-            if os.path.exists(file_path) and delete_image:
-                os.remove(file_path)
+            file_path = question['image']
+            if delete_image_file:
+                util.delete_image_file(file_path)
             questions.remove(question)
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
 
@@ -129,18 +132,22 @@ def get_question_id(answer_id):
             return answer['question_id']
 
 
-def update_question_dm(title, message, image_path, question_id, delete_image):
-    delete_question_dm(question_id, delete_image)
+# TODO solution in connection, without changing time. additionally: add date of edition
+def update_question_dm(title, message, image_path, question_id, delete_image_file):
+    delete_question_dm(question_id, delete_image_file)
     add_question_dm(title, message, image_path, question_id)
 
 
-# def update_answer_dm(answer_id, message, image_path, question_id):
-#     delete_answer_dm(answer_id, 'id')
-#     add_answer_dm(message, question_id, image_path)
+def vote_on_question_dm(question_id, vote):
+    vote_on_dm(question_id, questions_csv, vote, HEADERS_Q)
 
 
-def vote_on_dm(data_id, data_type, vote):
-    data_list = connection.read_dict_from_file(questions_csv if data_type == "q" else answers_csv)
+def vote_on_answer_dm(answer_id, vote):
+    vote_on_dm(answer_id, answers_csv, vote, HEADERS_A)
+
+
+def vote_on_dm(data_id, file_csv, vote, headers):
+    data_list = connection.read_dict_from_file(file_csv)
     for data in data_list:
         if data['id'] == data_id:
             number_of_votes = int(data["vote_number"])
@@ -149,9 +156,7 @@ def vote_on_dm(data_id, data_type, vote):
             elif vote == "down":
                 number_of_votes -= 1
             data["vote_number"] = number_of_votes
-
-    connection.write_dict_to_file_str(questions_csv if data_type == "q" else answers_csv,
-                                      data_list, HEADERS_Q if data_type == "q" else HEADERS_A)
+    connection.write_dict_to_file_str(file_csv, data_list, headers)
 
 
 def view_question_dm(question_id):
@@ -163,3 +168,10 @@ def view_question_dm(question_id):
             question["view_number"] = number_of_views
 
     connection.write_dict_to_file_str(questions_csv, questions, HEADERS_Q)
+
+
+def save_image_dm(image_file):
+    unique_filename = str(uuid.uuid4()) + os.path.splitext(image_file.filename)[1]
+    image_path = 'static/uploads/' + unique_filename
+    image_file.save(image_path)
+    return image_path

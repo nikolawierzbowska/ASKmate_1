@@ -1,6 +1,5 @@
 id,submission_time,vote_number,question_id,message,image
+1,1493398154,4,1,You need to use brackets: my_list = [],
 2,1493088154,35,1,Look it up in the Python docs,
-12,1686412668,0,4,gsadfads,
-13,1686424667,0,5,sbvdfvdfsv,
-14,1686675801,0,5,sgbvdfvfdsc,static/uploads/be03638b-2b95-4c0a-aa19-e7333e75e426.jpg
-15,1686683786,0,2,rjfdtyhgbdrt,static/uploads/c9718851-5709-4baa-9cd4-12aaf22b6a80.jpg
+3,1686993357,0,1,answer 1,static/uploads/f200133e-0b72-4559-84a7-ee27306511de.jpg
+4,1686993714,0,4,123,static/uploads/f2b4c39f-6e14-4e78-a47a-a0ce67776ba1.jpg

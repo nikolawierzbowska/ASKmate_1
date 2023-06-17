@@ -18,7 +18,11 @@
 </head>
 <body>
     <h2>Add Question</h2>
-
+    <p>
+        <a href="/list">
+            <button>Go back</button>
+        </a>
+    </p>
 
 
     <form action="/add_question" method="POST" enctype="multipart/form-data">
@@ -31,16 +35,14 @@
             <label for="message">Message:</label>
             <textarea id="message" name="message" required></textarea>
         </div>
-        <div>
+        <p>
             <label for="image">Image:</label>
             <input type="file" id="image" name="image">
-        </div>
+        </p>
 
-        <div>
+        <p>
             <input type="submit" value="Submit">
-        </div>
+        </p>
     </form>
 </body>
 </html>
-
-

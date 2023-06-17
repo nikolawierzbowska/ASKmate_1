@@ -12,23 +12,73 @@
         }
 
         th, td {
-            border: 1px solid black;
+            border: 1px solid #999a9c;
             padding: 8px;
             text-align: center;
         }
-         .cell-content {
+
+        .cell-content {
             position: relative;
             text-align: center;
         }
 
         .cell-text {
             display: block;
+            margin-right: 10px;
         }
 
-        .delete-button {
+        .buttons {
+            position: fixed;
+            top: 60px;
+            left: 15px;
+        }
+
+        .votes {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .thumb {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            margin-left: 5px;
+        }
+
+        .thumb a {
+            margin-left: 5px;
+        }
+
+        .edit-delete-buttons {
+            position: absolute;
+            top: -20px;
+            right: -10px;
+            display: flex;
+            flex-direction: row-reverse;
+        }
+
+        .remove_img {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            align-items: flex-end;
+            height: 100%;
+            justify-content: center;
+        }
+
+        .del_img {
+            margin-top: 5px;
+            margin-right: 5px;
             position: absolute;
             top: 0;
             right: 0;
+        }
+
+        .small-icon button {
+            font-size: 8px;
+            padding: 2px 4px;
         }
 
     </style>
@@ -44,57 +94,93 @@
         </tr>
         <tr>
             <td>
-                <a href="/question/{{question.id}}/vote_up?source=question">&#65514;</a>
+                <div class="votes">
                     {{ question.title }}
-            <a href="/question/{{question.id}}/vote_down?source=question">&#65516;</a>
+                    <div class="thumb">
+                        <a href="/question/{{question.id}}/vote_up?source=question">&#128077;</a>
+                        <a href="/question/{{question.id}}/vote_down?source=question">&#128078;</a>
+                    </div>
+                </div>
             </td>
             <td>{{ question.message }}</td>
             <td>
-                {% if question.image %}
-                    <img src="../{{ question.image }}" alt="Question Image" style="max-width: 50px;">
-                    <a href="/question/{{question.id}}/delete_image">
-                        <button type="button" id="remove_image" name="">&#10060;</button>
-                    </a>
-                {% endif %}
+                <span class="remove_img">
+                    {% if question.image %}
+                        <img src="../{{ question.image }}" alt="Question Image" style="max-width: 150px;">
+                            <div class="del_img small-icon">
+                                <a href="/question/{{question.id}}/delete_image">
+                                    <button type="button" id="remove_image" name="">&#10060;</button>
+                                </a>
+                            </div>
+                    {% endif %}
+                </span>
             </td>
         </tr>
     </table>
-<p>
-    <a href="/list">List of question</a>
-</p>
-<p>
-    <a href="/question/{{question.id}}/new_answer"> Add new answer</a>
-</p>
-<p>
-    <a href='/question/{{question.id}}/delete'>Delete question</a>
-</p>
-<p>
-    <a href='/question/{{question.id}}/edit'>Edit question</a>
-</p>
+    <div class="buttons">
+        <p>
+            <a href="/list">
+                <button>List of questions</button>
+            </a>
+        </p>
+        <p>
+            <a href="/question/{{question.id}}/new_answer">
+                <button>Add new answer</button>
+            </a>
+        </p>
+        <p>
+            <a href='/question/{{question.id}}/delete'>
+                <button>Delete question</button>
+            </a>
+
+        </p>
+        <p>
+            <a href='/question/{{question.id}}/edit'>
+                <button>Edit question</button>
+            </a>
+        </p>
+    </div>
+
     <table>
-         <tr>
-             <th>Date</th>
-             <th>Votes</th>
-             <th>Answers</th>
-             <th>Image</th>
+        <tr>
+            <th>Date</th>
+            <th>Votes</th>
+            <th>Answers</th>
+            <th>Image</th>
         </tr>
         {% for answer in answers %}
         <tr>
             <td>{{ answer.submission_time }}</td>
             <td>
-                <a href="/answer/{{answer.id}}/vote_up">&#65514;</a>
-                {{ answer.vote_number }}
-                <a href="/answer/{{answer.id}}/vote_down">&#65516;</a>
-            <td>
-                <div class="cell-content">
-                    <span class="cell-text">{{ answer.message }}</span>
-                    <a href="/answer/{{ answer.id }}/delete" class="delete-button">&#88;</a>
+                <div class="votes">
+                    {{ answer.vote_number }}
+                    <div class="thumb">
+                        <a href="/answer/{{answer.id}}/vote_up">&#128077;</a>
+                        <a href="/answer/{{answer.id}}/vote_down">&#128078;</a>
+                    </div>
                 </div>
             </td>
             <td>
-                {% if answer.image %}
-                    <img src="../{{ answer.image }}" alt="Answer Image" style="max-width: 50px;">
-                {% endif %}
+                <div class="cell-content cell-text">{{ answer.message }}
+                    <span class="edit-delete-buttons small-icon">
+                        <a href="/answer/{{ answer.id }}/delete">
+                            <button type="button" id="remove_image" name="">&#10060;</button>
+                        </a>
+                        <a href='/answer/{{answer.id}}/edit'>
+                            <button type="button" id="edit_answer" name="">&#9998;</button>
+                        </a>
+                    </span>
+                </div>
+            </td>
+            <td>
+                <div class="remove_img">
+                    {% if answer.image %}
+                        <img src="../{{ answer.image }}" alt="Answer Image" style="max-width: 150px;">
+                            <div class="del_img small-icon">
+                                <button type="button" id="remove_image" name="">&#10060;</button>
+                            </div>
+                    {% endif %}
+                </div>
             </td>
         </tr>
         {% endfor %}

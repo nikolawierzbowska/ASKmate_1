@@ -1,8 +1,9 @@
 id,submission_time,view_number,vote_number,title,message,image
-4,1686423787,2,1,123,123  ,
-5,1686424747,5,0,test,test1          ,
-6,1686425234,4,17,vsdfcasdc,ehtrgvsredf ,
-2,1686679318,33,15,Wordpress,"I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $('.myBook').booklet();
+3,1493015432,1364,57,Drawing canvas with an image picked with Cordova Camera Plugin,"I'm getting an image from device and drawing a canvas with filters using Pixi JS. It works all well using computer to get an image. But when I'm on IOS, it throws errors such as cross origin issue, or that I'm trying to use an unknown format.
+
+This is the code I'm using to draw the image (that works on web/desktop but not cordova built ios app)",
+1,1686993332,4,0,How,"I am totally new to this, any hints? ",static/uploads/6943a351-2d8d-411e-98ee-e2601ae79586.jpg
+2,1686993340,1,0,Wordpress,"I developed a plugin that uses the jquery booklet plugin (http://builtbywill.com/booklet/#/) this plugin binds a function to $ so I cann call $('.myBook').booklet();
 
 I could easy managing the loading order with wp_enqueue_script so first I load jquery then I load booklet so everything is fine.
 
@@ -10,5 +11,5 @@ BUT in my theme i also using jquery via webpack so the loading order is now foll
 
 jquery
 booklet
-app.js (bundled file with webpack, including jquery)",
-11,1686682605,14,9,256,rfeawefd       tyhgrtv  ,
+app.js (bundled file with webpack, including jquery) ",static/uploads/ff1797f8-c019-46f6-b619-81546727f573.jpg
+4,1686993700,4,0,123,123,static/uploads/399b459b-4aea-4dc7-811c-e1e9d2354eb9.jpg
