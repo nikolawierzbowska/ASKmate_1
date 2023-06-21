@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add Question</title>
+    <style>
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        textarea {
+            width: 80%;
+            height: 200px;
+            resize: vertical;
+        }
+    </style>
+</head>
+<body>
+<h2>Add Question</h2>
+<p><a href="/list"><button>Go back</button></a></p>
+
+<form action="/add_question" method="POST" enctype="multipart/form-data">
+    <div>
+        <label for="title">Title:</label>
+        <p><input type="text" id="title" name="title" required></p>
+    </div>
+
+    <div>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" required></textarea>
+    </div>
+    <br>
+    <div>
+
+        <label for="text">Image:</label>
+        <input type="file" id="image" name="image">
+    </div>
+
+    <div>
+        <input type="submit" value="Submit">
+    </div>
+</form>
+</body>
+</html>
